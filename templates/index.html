@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta tags for character encoding and responsive design -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deepfake Detection System - TruthLens AI</title>
+    <!-- Link to external CSS stylesheet using Flask's url_for -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- Main container wrapping all content -->
+    <div class="container">
+        <!-- Header Section: Contains logo, title, subtitle, and navigation -->
+        <header class="header">
+            <!-- Company/Product logo -->
+            <div class="logo">TruthLens AI</div>
+            <!-- Main page title -->
+            <h1 class="main-title">Deepfake Detection System</h1>
+            <!-- Descriptive subtitle explaining the system's purpose -->
+            <p class="subtitle">Advanced AI-powered analysis to detect manipulated images and videos with precision and confidence.</p>
+            
+            <!-- Navigation Bar: Tabs for different sections -->
+            <nav class="nav-bar">
+                <!-- Analyze tab - currently active (default view) -->
+                <a href="#" class="nav-item active" id="analyze-nav">
+                    <span class="nav-icon">🔍</span>
+                    <span>Analyze</span>
+                </a>
+                <!-- History tab - for viewing past analyses (future feature) 
+                <a href="#" class="nav-item" id="history-nav">
+                    <span class="nav-icon">📜</span>
+                    <span>History</span>
+                </a>  -->
+            </nav>
+        </header>
+
+        <!-- Main Content Area: Two-panel layout -->
+        <div class="main-content">
+            <!-- Left Panel: File Upload Section -->
+            <div class="panel upload-panel">
+                <h2 class="panel-title">Upload Media</h2>
+                <p class="panel-subtitle">Upload an image or video file for deepfake detection.</p>
+                
+                <!-- Upload area container -->
+                <div class="upload-area" id="upload-area">
+                    <!-- Hidden file input - triggered by clicking upload box -->
+                    <input type="file" id="file-input" accept="image/*,video/*" style="display: none;">
+                    
+                    <!-- Upload box: Clickable area for file selection and drag-and-drop -->
+                    <div class="upload-box" id="upload-box">
+                        <!-- Preview image shown after file selection (hidden by default) -->
+                        <img id="preview-image" src="" alt="Preview" style="display: none;">
+                        
+                        <!-- Placeholder content shown when no file is selected -->
+                        <div id="upload-placeholder">
+                            <!-- Upload icon SVG -->
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="17 8 12 3 7 8"></polyline>
+                                <line x1="12" y1="3" x2="12" y2="15"></line>
+                            </svg>
+                            <p>Click to upload or drag and drop</p>
+                        </div>
+                    </div>
+                    
+                    <!-- File information display: Shows filename and size (hidden by default) -->
+                    <div id="file-info" class="file-info" style="display: none;">
+                        <span id="file-name"></span>
+                        <span id="file-size"></span>
+                    </div>
+                    
+                    <!-- Action buttons -->
+                    <div class="button-group">
+                        <!-- Primary action: Analyze the uploaded file (disabled until file is selected) -->
+                        <button class="btn btn-primary" id="analyze-btn" disabled>Analyze File</button>
+                        <!-- Secondary action: Reset/clear the uploaded file -->
+                        <button class="btn btn-secondary" id="reset-btn">Reset</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Panel: Analysis Results Display -->
+            <div class="panel results-panel">
+                <h2 class="panel-title">Analysis Results</h2>
+                <p class="panel-subtitle">Detailed deepfake detection analysis.</p>
+                
+                <!-- Results content container (hidden by default, shown after analysis) -->
+                <div id="results-content" class="results-content" style="display: none;">
+                    <!-- Result Summary: Shows prediction (Real/Fake) and confidence score -->
+                    <div class="result-summary">
+                        <!-- Icon indicator: Green checkmark for Real, Red X for Fake -->
+                        <div class="result-icon" id="result-icon">
+                            <span id="result-checkmark">✓</span>
+                        </div>
+                        <!-- Prediction label: "Real" or "Fake" -->
+                        <div class="result-label" id="result-label">Real</div>
+                        <!-- Confidence percentage display -->
+                        <div class="confidence-score">
+                            Confidence: <span id="confidence-value">84.4%</span>
+                        </div>
+                    </div>
+
+                    <!-- Manipulation Type: Badge showing type of manipulation detected -->
+                    <div class="manipulation-type">
+                        <span class="type-badge" id="manipulation-badge">None (Real Image)</span>
+                    </div>
+
+                    <!-- Explanation: Detailed justification from Gemini API -->
+                    <div class="explanation">
+                        <h3>Explanation</h3>
+                        <!-- AI-generated explanation text -->
+                        <p id="justification-text">The image appears to be authentic with 84.4% confidence. Natural facial features and consistent lighting patterns detected.</p>
+                    </div>
+
+                    <!-- Suspicious Regions Heatmap: Visual representation of suspicious areas -->
+                    <div class="heatmap-section">
+                        <h3>Suspicious Regions Heatmap</h3>
+                        <!-- Container for heatmap overlay image -->
+                        <div class="heatmap-container">
+                            <!-- Heatmap image: Base64 encoded image from backend -->
+                            <img id="heatmap-image" src="" alt="Heatmap">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Placeholder message shown when no results are available -->
+                <div id="no-results" class="no-results">
+                    <p>Upload a file and click "Analyze File" to see results here.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- External JavaScript file for interactive functionality -->
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
+
