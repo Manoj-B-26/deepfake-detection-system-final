@@ -21,9 +21,6 @@ ENV/
 uploads/*
 !uploads/.gitkeep
 
-# Model files (too large for GitHub)
-*.pth
-
 # OS
 .DS_Store
 Thumbs.db
